@@ -1,0 +1,8 @@
+# Rest of Days Without Friday
+=26-SUMX(
+    FILTER(
+        CALENDAR(DATE(YEAR(NOW()), MONTH(NOW()), 1), TODAY()),
+        SWITCH(WEEKDAY([Date]), 6, 0, 1)
+    ),
+    1
+)+2

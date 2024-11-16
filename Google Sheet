@@ -1,0 +1,5 @@
+
+=SUMIFS('Form Responses 1'!$D:$D,'Form Responses 1'!$B:$B,A5,
+    ARRAYFORMULA(DATEVALUE('Form Responses 1'!$A:$A)),
+    TO_DATE($N$3)
+)

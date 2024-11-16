@@ -3,3 +3,17 @@
     ARRAYFORMULA(DATEVALUE('Form Responses 1'!$A:$A)),
     TO_DATE($N$3)
 )
+=ArrayFormula(SUMIFS(PriJan!$F$3:$F$995,PriJan!$B$3:$B$995,B2,PriJan!$D$3:$D$995,F2))
+
+=ARRAYFORMULA(IFS(ROW(A:A)=1,"TtlMt", A:A="","",TRUE,$O:$O/(VLOOKUP(J:J,SKU!$A:$I,9,0))))
+Observations:
+    ROW(A:A)=1:
+        This sets the header for the column as "TtlMt". It ensures the first row (header row) is labeled.
+    A:A="":
+        For empty rows in column A, it returns an empty string ("").
+    TRUE, $O:$O/(VLOOKUP(J:J, SKU!$A:$I, 9, 0)):
+        For all other rows, it performs the calculation:
+            Divides the values in column $O by the result of a VLOOKUP function.
+            VLOOKUP looks up values in column J from the range SKU!$A:$I and retrieves the value in the 9th column.
+    ARRAYFORMULA:
+        Ensures the formula applies to the entire column, avoiding the need to copy-paste formulas down the rows.

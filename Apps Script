@@ -1,0 +1,224 @@
+Code.gs
+function getUniSoId() {                    //Previous Name  getColors()
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var lovSheet = ss.getSheetByName("LOV");
+  var getLastRow = lovSheet.getLastRow();
+  var return_array = [];
+  for (var i = 2; i <= getLastRow; i++) {
+    if (return_array.indexOf(lovSheet.getRange(i, 1).getValue()) === -1) {
+      return_array.push(lovSheet.getRange(i, 1).getValue());
+    }
+  }
+  return return_array;
+  // console.log(return_array); 
+
+}
+
+function getRoutName(sId) {            // Previous Name  getFruits(color)
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var lovSheet = ss.getSheetByName("LOV");
+  var getLastRow = lovSheet.getLastRow();
+  var return_array = [];
+  for (var i = 2; i <= getLastRow; i++) {
+    if (lovSheet.getRange(i, 1).getValue() === sId) {
+      return_array.push(lovSheet.getRange(i, 2).getValue());
+    }
+  }
+  return return_array;
+}
+
+function getSku() {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var lovSheet = ss.getSheetByName("SKU");
+  var getLastRow = lovSheet.getLastRow();
+  var return_array = [];
+  for (var i = 2; i <= getLastRow; i++) {
+    if (return_array.indexOf(lovSheet.getRange(i, 1).getValue()) === -1) {
+      return_array.push(lovSheet.getRange(i, 1).getValue());
+    }
+  }
+  return return_array;
+}
+function getSkuIdFormSheet(skuNa) {  
+  var sId = '1IxYDuc6vODICEBudwHhr1OjAcMGlIiXQ09k9U6sCpgI';
+  var ss = SpreadsheetApp.openById(sId);  //var skuNa ='Pu.IMP.10';
+  var sheet = ss.getSheetByName('SKU');
+  var dataRange = sheet.getRange(2, 1, sheet.getLastRow(), 4);
+  var data = dataRange.getValues();
+  var kg = 0; // Default price
+
+  for (var i = 0; i < data.length; i++) {
+    if (data[i][0] == skuNa) {
+      kg = data[i][1];     //price = parseFloat(data[i][3]);
+      break; // Exit the loop once the match is found
+    }
+  }
+  //console.log(kg);  // this is for testing
+  return kg; // return the price
+}
+
+function getKgFormSheet(skuNa) {  
+  var sId = '1IxYDuc6vODICEBudwHhr1OjAcMGlIiXQ09k9U6sCpgI';
+  var ss = SpreadsheetApp.openById(sId);  //var skuNa ='Pu.IMP.10';
+  var sheet = ss.getSheetByName('SKU');
+  var dataRange = sheet.getRange(2, 1, sheet.getLastRow(), 4);
+  var data = dataRange.getValues();
+  var kg = 0; // Default price
+
+  for (var i = 0; i < data.length; i++) {
+    if (data[i][0] == skuNa) {
+      kg = data[i][2];     //price = parseFloat(data[i][3]);
+      break; // Exit the loop once the match is found
+    }
+  }
+  //console.log(price);  // this is for testing
+  return kg; // return the price
+}
+
+function getPriceFromSheet(selectedSku) {  // this return Price
+  var sId = '1IxYDuc6vODICEBudwHhr1OjAcMGlIiXQ09k9U6sCpgI';
+  var ss = SpreadsheetApp.openById(sId);  //var selectedSku ='Pu.IMP.10';
+  var sheet = ss.getSheetByName('SKU');
+  var dataRange = sheet.getRange(2, 1, sheet.getLastRow(), 4);
+  var data = dataRange.getValues();
+  var price = 0; // Default price
+
+  for (var i = 0; i < data.length; i++) {
+    if (data[i][0] == selectedSku) {
+      price = data[i][3];     //price = parseFloat(data[i][3]);
+      break; // Exit the loop once the match is found
+    }
+  }
+  //console.log(price);  // this is for testing
+  return price; // return the price
+}
+function getStockFromSheet(soCode, skuCode) {    // this function is ok
+  // Replace this with your actual sheet ID, SO Code column name, SKU column name, and Price column name
+  var sheetId = '1IxYDuc6vODICEBudwHhr1OjAcMGlIiXQ09k9U6sCpgI';
+  var soCodeColumn = 'A';
+  var skuCodeColumn = 'B';
+  var priceColumn = 'C';
+  //var soCode = 300002; 
+  //var skuCode = 'Pl.IFCMP.500';
+  // Open the spreadsheet
+  var spreadsheet = SpreadsheetApp.openById(sheetId);
+  var sheet = spreadsheet.getSheetByName('BalSt'); // Replace 'YourSheetName' with your actual sheet name
+
+  // Get the data range
+  var dataRange = sheet.getRange(2, 1, sheet.getLastRow(), 10); // Assuming data starts from row 2
+
+  // Get all values in the range
+  var data = dataRange.getValues();
+
+  // Iterate through the data to find the matching SO Code and SKU Code
+  var price = 0; // Default price
+
+  for (var i = 0; i < data.length; i++) {
+    if (data[i][1] == soCode && data[i][5] == skuCode) {
+      price = data[i][9];
+      break; // Exit the loop once the match is found
+    }
+  }
+
+  return price;
+  //console.log(price);  // this is for testing
+}
+
+
+
+function addInvoice(invoiceData) {
+  var ss = SpreadsheetApp.openById('1IxYDuc6vODICEBudwHhr1OjAcMGlIiXQ09k9U6sCpgI'); 
+  var sheet = ss.getSheetByName('Sheet1'); 
+
+  // Loop through line items and add a new row for each
+  invoiceData.lineItems.forEach(lineItem => {
+    sheet.appendRow([
+      invoiceData.zNam,
+      invoiceData.unam,
+      invoiceData.dbCode,
+      invoiceData.dbNam,
+      invoiceData.soNam,
+      invoiceData.date,
+      invoiceData.tgtMemo,
+      invoiceData.scsMemo,
+      invoiceData.fruit,
+
+      lineItem.myHouse,
+      lineItem.total,
+      lineItem.quantity,
+      lineItem.prc,
+      lineItem.ttlPrc,
+      lineItem.ttlKg,
+      lineItem.skId     
+    ]);
+  });
+}
+
+// Google Apps Script Code
+function getDbCodSheet(userInput) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('UserData');
+  var range = sheet.getRange('A:E');
+  var values = range.getValues();
+
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] === userInput) {
+      return values[i][3];
+    }
+  }
+  return "Not found"; // Return a default value if no match is found
+}
+function getDbNamSheet(userInput) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('UserData');
+  //var userInput = 'PG 1046';
+  var range = sheet.getRange('A:E');
+  var values = range.getValues();
+
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] === userInput) {
+      //console.log(values[i][4]); 
+      return values[i][4];
+    }
+  }
+  return "Not found"; // Return a default value if no match is found
+}
+
+function getSoNamSheet(userInput) {
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('UserData');
+  //var userInput = 'PG 1046';
+  var range = sheet.getRange('A:E');
+  var values = range.getValues();
+
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] === userInput) {
+      //console.log(values[i][4]); 
+      return values[i][2];
+    }
+  }
+  return "Not found"; // Return a default value if no match is found
+}
+
+function lookupZone(inpPgId) {   
+  var ss = SpreadsheetApp.getActiveSpreadsheet();
+  var sheet = ss.getSheetByName('LOV');
+  var range = sheet.getRange('A:G');
+  var values = range.getValues();
+  //var inpPgId = 'PG 1085';
+
+  for (var i = 0; i < values.length; i++) {
+    if (values[i][0] === inpPgId) {
+      // Return the first matching value and exit the loop
+      //console.log(values[i][6]);
+      return values[i][6];
+    }
+  }
+
+  return "Not found"; // Return a default value if no match is found
+}
+
+
+function include(filename) {
+  return HtmlService.createHtmlOutputFromFile(filename).getContent();
+}

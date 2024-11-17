@@ -1,0 +1,8 @@
+# Month wise Sum Ifs
+=SUMIFS(
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[TtlMT],
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[DBCODE],E3,
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[Cat], "RSO",
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], ">=" & DATE(2024, 10, 1),
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], "<=" & EOMONTH(DATE(2024, 10, 1), 0)
+)

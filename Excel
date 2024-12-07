@@ -13,3 +13,6 @@ Select the cells that contain the zero (0) values that you want to hide.
 You can press Ctrl+1, or on the Home tab, select Format > Format Cells.
 Select Number > Custom.
 In the Type box, type 0;-0;;@, and then select OK.
+
+## To count occurrences of the word "Tool" in the string "24kg_Plastic Tool + 12kg_Plastic Tool" 
+=(LEN(AT7) - LEN(SUBSTITUTE(AT7, "Tool", ""))) / LEN("Tool")

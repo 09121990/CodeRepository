@@ -6,6 +6,7 @@
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], ">=" & DATE(2024, 10, 1),
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], "<=" & EOMONTH(DATE(2024, 10, 1), 0)
 )
+## lookul value and place  one or more value by date formate
 TEXTJOIN(", ",,TEXT(FILTER(Stock[Stock Value 2024-07-02], (Stock[DB ID]=Sheet4!D2) * (Stock[SKU ID]=Sheet4!G2)), "yyyy-mm-dd"))
 
 ## Hide zero values in selected cells

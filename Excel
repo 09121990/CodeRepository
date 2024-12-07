@@ -7,3 +7,9 @@
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], "<=" & EOMONTH(DATE(2024, 10, 1), 0)
 )
 TEXTJOIN(", ",,TEXT(FILTER(Stock[Stock Value 2024-07-02], (Stock[DB ID]=Sheet4!D2) * (Stock[SKU ID]=Sheet4!G2)), "yyyy-mm-dd"))
+
+## Hide zero values in selected cells
+Select the cells that contain the zero (0) values that you want to hide.
+You can press Ctrl+1, or on the Home tab, select Format > Format Cells.
+Select Number > Custom.
+In the Type box, type 0;-0;;@, and then select OK.

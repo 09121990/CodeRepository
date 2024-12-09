@@ -9,11 +9,22 @@
 ## lookul value and place  one or more value by date formate
 TEXTJOIN(", ",,TEXT(FILTER(Stock[Stock Value 2024-07-02], (Stock[DB ID]=Sheet4!D2) * (Stock[SKU ID]=Sheet4!G2)), "yyyy-mm-dd"))
 
+
+
+## To count occurrences of the word "Tool" in the string "24kg_Plastic Tool + 12kg_Plastic Tool" 
+=(LEN(AT7) - LEN(SUBSTITUTE(AT7, "Tool", ""))) / LEN("Tool")
+
+
 ## Hide zero values in selected cells
 Select the cells that contain the zero (0) values that you want to hide.
 You can press Ctrl+1, or on the Home tab, select Format > Format Cells.
 Select Number > Custom.
 In the Type box, type 0;-0;;@, and then select OK.
 
-## To count occurrences of the word "Tool" in the string "24kg_Plastic Tool + 12kg_Plastic Tool" 
-=(LEN(AT7) - LEN(SUBSTITUTE(AT7, "Tool", ""))) / LEN("Tool")
+[Color10]$#,##0.0#" Profit";[Red] -$#,##0.0#" Loss";[Black] 0.0#;[Magenta] @
+[Color10]0"▲";[Red]-0"▼‏"
+[Red][<50]0;[Blue][>=50]0;[Green]-0
+Coditional Format :  ISTEXT(E3)
+[>=1000]#,##0,"K";0
+0.00,, "M"     0.0," k"
+

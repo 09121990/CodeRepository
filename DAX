@@ -17,12 +17,13 @@
     )
 )
 =CALCULATE(
-    SUM(SO_Sls[KG]),
+    DISTINCTCOUNT(OutletWiseDelivery[outlet_id]),
     FILTER(
-        SO_Sls,
-        MONTH(SO_Sls[date]) = 10 && 
-        YEAR(SO_Sls[date]) = 2024 && 
-        RELATED(SO[Area Name]) <> ""  // Adjust the condition as needed
+        OutletWiseDelivery,
+        YEAR(OutletWiseDelivery[delivery_date]) = 2024 &&
+        MONTH(OutletWiseDelivery[delivery_date]) = 12 &&
+        NOT(ISBLANK(RELATED(SO[Area Name])))
+        --RELATED(SO[Area Name]) <> ""
     )
 )
 =SUMX(

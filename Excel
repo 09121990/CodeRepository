@@ -1,11 +1,18 @@
 # Month wise Sum Ifs
-=SUMIFS(
+SUMIFS(
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[TtlMT],
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[DBCODE],E3,
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[Cat], "RSO",
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], ">=" & DATE(2024, 10, 1),
     '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], "<=" & EOMONTH(DATE(2024, 10, 1), 0)
 )
+## SUMIFS Approach
+SUMPRODUCT(('RAW DATA'!$C$1:$U$1='LOOK UP'!$C4)*('RAW DATA'!$C$2:$U$7))
+SUMIFS(INDEX('RAW DATA'!$C$2:$U$7,,MATCH('LOOK UP'!$C4,'RAW DATA'!$C$1:$U$1,0)),'RAW DATA'!$A$2:$A$7,'LOOK UP'!$B4)
+SUM(FILTER('RAW DATA'!$C$2:$U$7, 'RAW DATA'!$C$1:$U$1='LOOK UP'!$C4)) 
+SUM(IF('RAW DATA'!$C$1:$U$1='LOOK UP'!$C4, 'RAW DATA'!$C$2:$U$7))
+
+
 ## lookul value and place  one or more value by date formate
 TEXTJOIN(", ",,TEXT(FILTER(Stock[Stock Value 2024-07-02], (Stock[DB ID]=Sheet4!D2) * (Stock[SKU ID]=Sheet4!G2)), "yyyy-mm-dd"))
 

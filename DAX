@@ -49,5 +49,12 @@
     ),
     DATEADD(Stock[Source.Name], -1, DAY)
 )
+## calculate the total weighted stock quantity
+= CALCULATE(
+    SUMX(
+        VALUES(Sku[KG]),
+        Sku[KG] * Stock[Sum of Secondary Qty-Pcs]
+    )
+)
 
 

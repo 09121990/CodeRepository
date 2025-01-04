@@ -38,3 +38,12 @@
         BLANK()
     )
 )
+
+## Curent Date Month Year
+=CALCULATE(
+    SUM(SalOrdDeta[TtlMT]),
+    FILTER(
+        VALUES(DatTable[Date]),
+       DatTable[Date]= TODAY()-1 && MONTH(DatTable[Date]) = MONTH(TODAY()-1)	
+    )
+)

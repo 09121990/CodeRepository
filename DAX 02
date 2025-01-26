@@ -28,3 +28,20 @@
         BLANK()
     )
 )
+
+Step 1: SUMMARIZE groups the Trade_Program_OutletWiseDeliver_Jan_25 table by outlet_id and calculates the sum of delivery_qty_in_KG_LTR for each unique outlet_id.
+Step 2: SUMX iterates over the summarized table, dividing DeliveryQty by 3 and rounding down the result.
+Step 3: CALCULATE applies a filter to include only rows where SkuMay[SL NO] = "Pusti Plus".
+
+=CALCULATE(
+    SUMX(
+        SUMMARIZE(
+            Trade_Program_OutletWiseDeliver_Jan_25,
+            Trade_Program_OutletWiseDeliver_Jan_25[outlet_id],
+            "DeliveryQty", SUM(Trade_Program_OutletWiseDeliver_Jan_25[delivery_qty_in_KG_LTR])
+        ),
+        ROUNDDOWN([DeliveryQty] / 3, 0)
+    ),
+    SkuMay[SL NO] = "Pusti Plus"
+)
+

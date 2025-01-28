@@ -45,3 +45,18 @@ Step 3: CALCULATE applies a filter to include only rows where SkuMay[SL NO] = "P
     SkuMay[SL NO] = "Pusti Plus"
 )
 
+= SUMX(
+    FILTER(
+        ADDCOLUMNS(
+            DISTINCT(Trade_Program_OutletWiseDeliver_Jan_25[outlet_id]),
+            "DeliveryQty",
+            CALCULATE(
+                SUM(Trade_Program_OutletWiseDeliver_Jan_25[delivery_qty_in_KG_LTR]),
+                SkuMay[SL NO] = "Pusti Plus"
+            )
+        ),
+        [DeliveryQty] > 0
+    ),
+    ROUNDDOWN([DeliveryQty] / 3, 0)
+)
+

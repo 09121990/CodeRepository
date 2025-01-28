@@ -1,0 +1,13 @@
+## Top 3 Item Horizontally
+=CONCATENATEX(
+          TOPN(3, 
+              VALUES(SalesSummary[Item]),
+              RANKX(ALL(SalesSummary[Item]), [Sum of Value], ,ASC)),
+         SalesSummary[Item]&"_"&FORMAT([Sum of Value],"0") ,"    ", [Sum of Value], DESC)
+
+
+## Top 3 Item SUM
+=Var Item_Name = VALUES(SalesSummary[Item]) 
+    Return
+        CALCULATE(SalesSummary[Sum of Value],
+    TOPN(3, ALL(SalesSummary[Item]),[Sum of Value]),Item_Name)

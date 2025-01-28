@@ -11,3 +11,9 @@
     Return
         CALCULATE(SalesSummary[Sum of Value],
     TOPN(3, ALL(SalesSummary[Item]),[Sum of Value]),Item_Name)
+
+## Each Group Top 3 Item Vertically
+=Var Item_Name = VALUES(SalesSummary[Item]) 
+   Return
+          CALCULATE(sum(SalesSummary[Value]),
+          TOPN(3, ALL(SalesSummary[Item]),SalesSummary[Sum of Value]),Item_Name)

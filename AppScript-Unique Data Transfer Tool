@@ -1,0 +1,36 @@
+function extractUniqueData() {
+  var ss = SpreadsheetApp.openById("1LWTRQDy3vYKqf7ix45Zfaqcuxaz7HJDvS1lCwdz2pso"); 
+  var sourceSheet = ss.getSheetByName("Data"); 
+  var targetSheet = ss.getSheetByName("CleanData"); 
+  
+  if (!sourceSheet || !targetSheet) {
+    Logger.log("Error: One or both sheets not found!");
+    return;
+  }
+  
+  // Get the full data range from A:Q
+  var data = sourceSheet.getRange("A1:Q").getValues(); 
+
+  // Extract unique A & B combinations and keep corresponding A:Q data
+  var uniqueKeys = new Set();
+  var uniqueData = [];
+
+  for (var i = 0; i < data.length; i++) {
+    var key = data[i][0] + "|" + data[i][1]; // Combine A & B as a unique key
+    if (!uniqueKeys.has(key)) {
+      uniqueKeys.add(key);
+      uniqueData.push(data[i]); // Store the full row A:Q
+    }
+  }
+
+  // Clear the target sheet before inserting new data
+  targetSheet.clear();
+
+  // Set headers (if needed)
+  // targetSheet.getRange(1, 1, 1, 17).setValues([["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q"]]);
+
+  // Write the unique data to CleanData starting from row 2
+  if (uniqueData.length > 0) {
+    targetSheet.getRange(1, 1, uniqueData.length, uniqueData[0].length).setValues(uniqueData);
+  }
+}

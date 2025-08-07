@@ -1,0 +1,55 @@
+# Month wise Sum Ifs
+SUMIFS(
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[TtlMT],
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[DBCODE],E3,
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[Cat], "RSO",
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], ">=" & DATE(2024, 10, 1),
+    '0.Sles_Oreder_April_To_Sept_24.xlsx'!DO[SODate], "<=" & EOMONTH(DATE(2024, 10, 1), 0)
+)
+## SUMIFS Approach
+SUMPRODUCT(('RAW DATA'!$C$1:$U$1='LOOK UP'!$C4)*('RAW DATA'!$C$2:$U$7))
+SUMIFS(INDEX('RAW DATA'!$C$2:$U$7,,MATCH('LOOK UP'!$C4,'RAW DATA'!$C$1:$U$1,0)),'RAW DATA'!$A$2:$A$7,'LOOK UP'!$B4)
+SUM(FILTER('RAW DATA'!$C$2:$U$7, 'RAW DATA'!$C$1:$U$1='LOOK UP'!$C4)) 
+SUM(IF('RAW DATA'!$C$1:$U$1='LOOK UP'!$C4, 'RAW DATA'!$C$2:$U$7))
+
+
+## lookul value and place  one or more value by date formate
+TEXTJOIN(", ",,TEXT(FILTER(Stock[Stock Value 2024-07-02], (Stock[DB ID]=Sheet4!D2) * (Stock[SKU ID]=Sheet4!G2)), "yyyy-mm-dd"))
+
+
+
+## To count occurrences of the word "Tool" in the string "24kg_Plastic Tool + 12kg_Plastic Tool" 
+=(LEN(AT7) - LEN(SUBSTITUTE(AT7, "Tool", ""))) / LEN("Tool")
+
+
+## Hide zero values in selected cells
+Select the cells that contain the zero (0) values that you want to hide.
+You can press Ctrl+1, or on the Home tab, select Format > Format Cells.
+Select Number > Custom.
+In the Type box, type 0;-0;;@, and then select OK.
+
+[Color10]$#,##0.0#" Profit";[Red] -$#,##0.0#" Loss";[Black] 0.0#;[Magenta] @
+[Color10]0"▲";[Red]-0"▼‏"
+[Red][<50]0;[Blue][>=50]0;[Green]-0
+Coditional Format :  ISTEXT(E3)
+[>=1000]#,##0,"K";0
+0.00,, "M"     0.0," k"
+
+
+IF(BA8*0.2 > 0.2, 0.2, BA8*0.2) +
+IF(BR8*0.15 > 0.15, 0.15, BR8*0.15) +
+IF(CU8*0.15 > 0.15, 0.15, CU8*0.15) +
+IF(DR8*0.1 > 0.1, 0.1, DR8*0.1) +
+IF(EI8*0.1 > 0.1, 0.1, EI8*0.1) +
+IF(EZ8*0.1 > 0.1, 0.1, EZ8*0.1) +
+IF(FE8*0.1 > 0.1, 0.1, FE8*0.1) +
+IF(FJ8*0.1 > 0.1, 0.1, FJ8*0.1)
+## Alternative
+=MIN(BA8*0.2, 0.2) +
+MIN(BR8*0.15, 0.15) +
+MIN(CU8*0.15, 0.15) +
+MIN(DR8*0.1, 0.1) +
+MIN(EI8*0.1, 0.1) +
+MIN(EZ8*0.1, 0.1) +
+MIN(FE8*0.1, 0.1) +
+MIN(FJ8*0.1, 0.1)
